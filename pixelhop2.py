@@ -33,8 +33,11 @@ if __name__ == "__main__":
     # example callback function for collecting patches and its inverse
     def Shrink(X, shrinkArg):
         win = shrinkArg['win']
-        X = view_as_windows(X, (1,win,win,1), (1,win,win,1))
+        stride = shrinkArg['stride']
+        ch = X.shape[-1]
+        X = view_as_windows(X, (1,win,win,ch), (1,stride,stride,ch))
         return X.reshape(X.shape[0], X.shape[1], X.shape[2], -1)
+
 
     # example callback function for how to concate features from different hops
     def Concat(X, concatArg):
@@ -48,10 +51,10 @@ if __name__ == "__main__":
     print(" input feature shape: %s"%str(X.shape))
 
     # set args
-    SaabArgs = [{'num_AC_kernels':-1, 'needBias':False, 'useDC':True, 'batch':None}, 
-                {'num_AC_kernels':-1, 'needBias':True, 'useDC':True, 'batch':None}]
-    shrinkArgs = [{'func':Shrink, 'win':2}, 
-                {'func': Shrink, 'win':2}]
+    SaabArgs = [{'num_AC_kernels':-1, 'needBias':False, 'useDC':True, 'batch':None, 'cw': False}, 
+                {'num_AC_kernels':-1, 'needBias':True, 'useDC':True, 'batch':None, 'cw': True}]
+    shrinkArgs = [{'func':Shrink, 'win':2, 'stride':1}, 
+                {'func': Shrink, 'win':2, 'stride':1}]
     concatArg = {'func':Concat}
 
     print(" --> test inv")
