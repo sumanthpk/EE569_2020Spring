@@ -6,6 +6,7 @@ You need to install numpy and sklearn packages to use the code.
 ### Contents
 `saab.py`: Saab transform\
 `cwSaab.py`: Channel-wise Saab transform\
+`pixelhop2.py`: Prune the tree built by `cwSaab.py` using thresholds `TH1`,`TH2` and `TH3`\
 `cross_entropy.py`: Compute cross entropy for a single feature dimension to do feature selection\
 `lag.py`: Label-Assisted reGression (LAG unit)\
 `llsr.py`: Assembled LLSR module ([numpy.linalg.lstsq](https://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.lstsq.html) is used inside)\
