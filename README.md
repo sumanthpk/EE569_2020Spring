@@ -11,5 +11,5 @@ You need to install numpy and sklearn packages to use the code.
 `llsr.py`: Assembled LLSR module ([numpy.linalg.lstsq](https://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.lstsq.html) is used inside)\
 Example of usage can be found at the bottom of each file. \
 
-##### Note
+#### Note 
 All the images or data that are fed into these functions should be in the `channel last` format.
