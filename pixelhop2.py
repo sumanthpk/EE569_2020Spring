@@ -57,11 +57,11 @@ if __name__ == "__main__":
 
     print(" --> test inv")
     print(" -----> depth=1")
-    p2 = Pixelhop2(depth=1, TH1=0.01, TH2=0.001, TH3=0.0001, SaabArgs=SaabArgs, shrinkArgs=shrinkArgs, concatArg=concatArg)
+    p2 = Pixelhop2(depth=1, TH1=0.01, TH2=0.001, SaabArgs=SaabArgs, shrinkArgs=shrinkArgs, concatArg=concatArg)
     output = p2.fit(X)
     output = p2.transform(X)
     print(" -----> depth=2")
-    p2 = Pixelhop2(depth=2, TH1=0.01, TH2=0.001, TH3=0.0001, SaabArgs=SaabArgs, shrinkArgs=shrinkArgs, concatArg=concatArg)
+    p2 = Pixelhop2(depth=2, TH1=0.01, TH2=0.001, SaabArgs=SaabArgs, shrinkArgs=shrinkArgs, concatArg=concatArg)
     output = p2.fit(X)
     output = p2.transform(X)
     print(output[0].shape, output[1].shape)
