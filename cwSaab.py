@@ -44,12 +44,12 @@ class cwSaab():
         return saab, transformed, dc
 
     def judge(self, X, layer):
-        print('choose intermediate nodes')
+        #print('choose intermediate nodes')
         X = self.shrinkArgs[layer]['func'](X, self.shrinkArgs[layer])
         #pca = PCA(n_components=1, svd_solver='full').fit((X.reshape(-1, X.shape[-1])) - np.mean(X.reshape(-1, X.shape[-1]), axis=1, keepdims=True))
         pca = IncrementalPCA(n_components=1).fit((X.reshape(-1, X.shape[-1])) - np.mean(X.reshape(-1, X.shape[-1]), axis=1, keepdims=True))
         R2 = pca.explained_variance_ratio_[0]
-        print('finish choosing intermediate nodes')
+        #print('finish choosing intermediate nodes')
         return ((1. / R2) >= self.energyTH)
 
     def cwSaab_1_layer(self, X, train):
