@@ -33,6 +33,7 @@ class Saab():
             self.num_kernels = X.shape[-1]
 #        pca = PCA(n_components=self.num_kernels, svd_solver='full').fit(X)
         pca = IncrementalPCA(n_components=self.num_kernels).fit(X)
+        X = pca.transform(X)
         kernels = pca.components_
         energy = pca.explained_variance_ / np.sum(pca.explained_variance_)
         if self.useDC == True:  
