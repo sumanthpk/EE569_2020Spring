@@ -54,7 +54,7 @@ class Saab():
         dc = np.mean(X.copy(), axis=1, keepdims=True)
         X = np.matmul(X, np.transpose(self.Kernels))
         if self.needBias == True and self.useDC == True:
-            X[0] -= self.Bias
+            X[:, 0] -= self.Bias
         return X, dc
     
     def inverse_transform(self, X, DC):
@@ -63,7 +63,7 @@ class Saab():
         X = X.astype('float32')
         DC = DC.astype('float32')
         if self.needBias == True and self.useDC == True:
-            X[0] += self.Bias
+            X[:, 0] += self.Bias
         X = np.matmul(X, self.Kernels)
         if self.needBias == True:
             X -= self.Bias 
