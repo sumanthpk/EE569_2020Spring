@@ -90,16 +90,18 @@ class Cross_Entropy():
         return sklearn.metrics.log_loss(y, probab)/math.log(self.num_class)
 
 if __name__ == "__main__":
-    from sklearn.ensemble import RandomForestClassifier
     from sklearn import datasets
     from sklearn.model_selection import train_test_split
     
     print(" > This is a test example: ")
     digits = datasets.load_digits()
-    X = digits.images.reshape((len(digits.images), -1))
-    print(" input feature shape: %s"%str(X.shape))
-    X_train, X_test, y_train, y_test = train_test_split(X, digits.target, test_size=0.2,  stratify=digits.target)
-    
-    ce = Cross_Entropy(num_class=10, num_bin=10)
-    print(" --> KMeans ce: %s"%str(ce.KMeans_Cross_Entropy(X_train, y_train)))
+    X_ori = digits.images.reshape((len(digits.images), -1))
+    print(" input feature shape: %s"%str(X_ori.shape))
+    X_train, X_test, y_train, y_test = train_test_split(X_ori, digits.target, test_size=0.2,  stratify=digits.target)
+    # print('training data shape {}'.format(X_train.shape))
+    ce = Cross_Entropy(num_class=10, num_bin=5)
+    feat_ce = np.zeros(X_train.shape[-1])
+    for k in range(X_train.shape[-1]):
+        feat_ce[k] = ce.KMeans_Cross_Entropy(X_train[:,k].reshape(-1,1), y_train)
+        print(" --> KMeans ce: %s"%str(feat_ce[k]))
     print("------- DONE -------\n")
