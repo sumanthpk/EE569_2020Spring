@@ -55,8 +55,7 @@ class LAG():
                 p_dis = p_dis / np.sum(p_dis)
                 Yt_onehot[i, self.clus_labels == gt] = p_dis            
         elif self.encode == 'onehot':
-            Yt_onehot = np.zeros((X.shape[0], np.unique(Yt).shape[0]))
-            Yt_onehot[np.arange(Y.size), Yt] = 1
+            Yt_onehot = np.eye(len(np.unique(Yt)))[Yt.reshape(-1)]
         else:
             print("       <Warning>        Using raw label for learner.")
             Yt_onehot = Yt
