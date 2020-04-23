@@ -53,8 +53,8 @@ if __name__ == "__main__":
     print(" input feature shape: %s"%str(X.shape))
 
     # set args
-    SaabArgs = [{'num_AC_kernels':-1, 'needBias':False, 'useDC':True, 'batch':None, 'cw':False}, 
-                {'num_AC_kernels':-1, 'needBias':True, 'useDC':True, 'batch':None, 'cw':True}]
+    SaabArgs = [{'num_AC_kernels':-1, 'needBias':False, 'useDC':True, 'cw':False}, 
+                {'num_AC_kernels':-1, 'needBias':True, 'useDC':True, 'cw':True}]
     shrinkArgs = [{'func':Shrink, 'win':2}, 
                 {'func': Shrink, 'win':2}]
     concatArg = {'func':Concat}
