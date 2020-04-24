@@ -25,10 +25,11 @@ class Cross_Entropy():
         mybin = np.zeros((self.num_bin, self.num_class))
         b = x.astype('int64')
         b[b == self.num_bin] -= 1
-        mybin[b,y] += 1.
-        for l in range(0,self.num_class):
+        for i in range(b.shape[0]):
+            mybin[b[i], y[i]] += 1.
+        for l in range(0, self.num_class):
             p = np.array(y[ y==l ]).shape[0]
-            mybin[:,l] /= (float)(p)
+            mybin[:, l] /= (float)(p)
         return np.argmax(mybin, axis=1)
     
     def kmeans_process(self, x, y):
@@ -36,10 +37,11 @@ class Cross_Entropy():
         mybin = np.zeros((self.num_bin, self.num_class))
         b = kmeans.labels_.astype('int64')
         b[b == self.num_bin] -= 1
-        mybin[b,y] += 1.
-        for l in range(0,self.num_class):
+        for i in range(b.shape[0]):
+            mybin[b[i], y[i]] += 1.
+        for l in range(0, self.num_class):
             p = np.array(y[ y==l ]).shape[0]
-            mybin[:,l] /= (float)(p)
+            mybin[:, l] /= (float)(p)
         return np.argmax(mybin, axis=1)
 
     def compute_prob(self, x, y):
@@ -50,12 +52,13 @@ class Cross_Entropy():
             for l in range(0, self.num_class):
                 p = mybin[mybin == l]
                 p = np.array(p).shape[0]
-                prob[l,k] = p / (float)(self.num_bin)
+                prob[l, k] = p / (float)(self.num_bin)
         return prob
 
     def compute(self, x, y, class_weight=None):
         x = x.astype('float64')
         y = y.astype('int64')
+        y = y.reshape(-1, 1)
         prob = self.compute_prob(x, y)
         prob = -1 * np.log10(prob + 1e-5) / np.log10(self.num_class)
         y = np.moveaxis(y, 0, 1)
@@ -68,7 +71,7 @@ class Cross_Entropy():
         if class_weight != None:
             class_weight = np.array(class_weight)
             H *= class_weight.reshape(class_weight.shape[0],1) * self.num_class
-        return np.sum(H, axis=0)
+        return np.mean(H, axis=0)
 
     # new cross entropy
     def KMeans_Cross_Entropy(self, X, Y):
